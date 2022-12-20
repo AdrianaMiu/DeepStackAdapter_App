@@ -4,8 +4,7 @@ import sys
 import os
 
 #credentials = pika.PlainCredentials('guest', 'guest')
-connection = pika.BlockingConnection(pika.ConnectionParameters('localhost')
-)
+connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
 
 file_path = os.path.join(os.getcwd(), 'rabbit_msg.json')
 json_data = json.load(open(file_path))

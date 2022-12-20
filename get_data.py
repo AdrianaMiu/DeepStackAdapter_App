@@ -1,32 +1,23 @@
 import pika
-import sys
-import os
 
-def main():
-    #connect to RabbitMQ
-    connection = pika.BlockingConnection(pika.ConnectionParameters('localhost'))
-    channel = connection.channel()
 
-    #declare a queue
-    channel.queue_declare(queue='Input')
+class RabbitDataHandler():
+    def __init__(self, host='localhost'):
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=host))
+        self.channel = self.connection.channel()
+    
+    def get_data(self, queue_name):
+        self.channel.queue_declare(queue=queue_name)
+        method_frame, header_frame, body = self.channel.basic_get(queue_name)
+        # Check if there was a message in the queue
+        if method_frame:
+            self.channel.basic_ack(method_frame.delivery_tag)
+            return body
+        else:
+            #no message wa retrieved
+            return None
+   
 
-    #callback function to process the message
-    def callback(ch, method, properties, body):
-        print(f'Received data: {body}')
+data_retriver = RabbitDataHandler()
+metadata = data_retriver.get_data('Input') #one single message from queue
 
-    #consume messages
-    channel.basic_consume(queue='Input', on_message_callback=callback, auto_ack=True)
-
-    #consumer loop
-    print("Messages:")
-    channel.start_consuming()
-
-if __name__ == '__main__':
-    try:
-        main()
-    except KeyboardInterrupt:
-        print("Interrupted")
-        try:
-            sys.exit(0)
-        except:
-            os._exit(0)
