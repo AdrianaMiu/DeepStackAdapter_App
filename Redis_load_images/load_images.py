@@ -7,7 +7,7 @@ import os
 r = redis.Redis(host='localhost', port=6379, db=0, password='eYVX7EwVmmxKPCDmwMtyKVge8oLd2t81')
 
 image_dir='C:\\Users\\MT\\Desktop\\Adaptor DeepStack\\App\\Redis_load_images'
-image_files=[f for f in os.listdir(image_dir) if f.endswith(('.jpg', '.png'))]
+image_files=[f for f in os.listdir(image_dir) if f.endswith(('.jpg', '.png', '.jfif'))]
 
 #open and encode the image as a base64 string for Redis
 for image_file in image_files:
