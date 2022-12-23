@@ -1,4 +1,5 @@
 import pika
+import json
 
 
 class RabbitDataHandler():
@@ -12,6 +13,7 @@ class RabbitDataHandler():
         # Check if there was a message in the queue
         if method_frame:
             self.channel.basic_ack(method_frame.delivery_tag)
+            
             return body
         else:
             #no message wa retrieved
@@ -27,6 +29,5 @@ class RabbitDataHandler():
 
 
 data_retriver = RabbitDataHandler()
-metadata = data_retriver.get_data('Input') #one single message from queue
 
     

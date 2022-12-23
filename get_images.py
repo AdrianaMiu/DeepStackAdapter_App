@@ -15,5 +15,4 @@ class RedisReader():
         image = base64.b64decode(image_bytes)
         return image
 
-reader = RedisReader()
-print(reader.get_images("mug.jfif"))
+images = RedisReader()

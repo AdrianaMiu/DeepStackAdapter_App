@@ -1,2 +1,1 @@
-Adapter app that takes metadata from RabbitMQ service and images from Redis database and send them to DeepStack Server to be processed.
-The app receives response from Server and send it to RabbitMQ.
+Adapter app that sends images stored in a Redis database and JSON data received from a RabbitMQ message queue to a DeepStack server for processing and return the response to RabbitMQ server.
