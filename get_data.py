@@ -16,18 +16,21 @@ class RabbitDataHandler():
             
             return body
         else:
-            #no message wa retrieved
+            #no message retrieved
             return None
    
     def write_data(self, queue_name, message):
         self.channel.queue_declare(queue=queue_name)
-        self.channel.basic_publish(exchange='', routing_key=queue_name, body=message,
+        # Serialize the JSON data as a string
+        json_data = json.dumps(message)
+        self.channel.basic_publish(exchange='', routing_key=queue_name, body=json_data,
                                     properties=pika.BasicProperties(delivery_mode=2))
+    
     def close(self):
         # Close the connection
         self.connection.close()
 
 
-data_retriver = RabbitDataHandler()
+
 
     

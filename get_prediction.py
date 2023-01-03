@@ -1,7 +1,6 @@
 import requests
 import json
-from get_images import images
-from get_data import data_retriver
+
 
 
 class DeepStackClient:
@@ -30,11 +29,3 @@ class DeepStackClient:
         except Exception as e:
             #return the error msg if there was an issue with the request
             return {'ERROR':str(e)}
-
-
-image_data = images.get_images("sky.jpg")
-metadata = data_retriver.get_data('Input')
-
-predictor = DeepStackClient()
-response = predictor.send_image(image_data, metadata)
-print(response)

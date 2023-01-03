@@ -15,4 +15,3 @@ class RedisReader():
         image = base64.b64decode(image_bytes)
         return image
 
-images = RedisReader()
